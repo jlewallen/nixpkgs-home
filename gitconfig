@@ -1,0 +1,31 @@
+[user]
+	email = jlewallen@gmail.com
+	name = Jacob Lewallen
+
+[diff]
+	tool = p4merge
+
+[difftool]
+	prompt = false
+
+[mergetool "p4merge"]
+	cmd = ~/tools/p4merge/bin/p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+	keepTemporaries = false
+	trustExitCode = false
+	keepBackup = false
+
+[difftool "p4merge"]
+	cmd = ~/tools/p4merge/bin/p4merge "$LOCAL" "$REMOTE"
+	keepTemporaries = false
+	trustExitCode = false
+	keepBackup = false
+
+[push]
+	default = simple
+
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[pager]
+	log = false
+[init]
+	defaultBranch = main
