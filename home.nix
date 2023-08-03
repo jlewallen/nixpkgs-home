@@ -1,7 +1,8 @@
 { pkgs, ... }: {
   home.username = "jlewallen";
-  home.homeDirectory = "/home/jlewallen";
+  home.homeDirectory = "/${if pkgs.stdenv.isDarwin then "Users" else "home"}/jlewallen";
   home.stateVersion = "22.11";
+
   programs.home-manager.enable = true;
 
   home.packages = [
@@ -10,20 +11,39 @@
     pkgs.ripgrep
     pkgs.bat
     pkgs.htop
+    pkgs.rsstail
     pkgs.unzip
     pkgs.wget
     pkgs.mosh
     pkgs.python3
+    pkgs.exa
+    pkgs.jq
+    pkgs.sqlite
+    # pkgs.wireshark
+    pkgs.du-dust
+    pkgs.fd
+    pkgs.prettyping
+    pkgs.imagemagick
+    pkgs.tshark
+    pkgs.tig
   ];
+
+  programs.vim = {
+    enable = true;
+  };
 
   programs.git = {
     enable = true;
+    package = pkgs.gitAndTools.gitFull;
     includes = [{ path = "~/.config/nixpkgs/gitconfig"; }];
   };
 
   programs.zsh = {
     enable = true;
     initExtra = builtins.readFile ./zshenv;
+    sessionVariables = {
+      EDITOR = "vim";
+    };
     oh-my-zsh = {
       enable = true;
       plugins = [ "git" ];
@@ -43,6 +63,13 @@
     enable = true;
     nix-direnv.enable = true;
   };
+
+  /*
+  Bad GL configuration?
+  programs.alacritty = {
+    enable = true;
+  };
+  */
 
   programs.tmux = {
     enable = true;
